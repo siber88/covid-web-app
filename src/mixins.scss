@@ -1,0 +1,51 @@
+@-webkit-keyframes loading-skeleton {
+    0% {
+      background-position: -100vw 0;
+    }
+    100% {
+      background-position: 100vw 0;
+    }
+  }
+  
+  @keyframes loading-skeleton {
+    0% {
+      background-position: -100vw 0;
+    }
+    100% {
+      background-position: 100vw 0;
+    }
+  }  
+  
+@mixin loading-skeleton($primary-color, $secondary-color) {
+    -webkit-animation-duration: 5s;
+    animation-duration: 5s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-name: loading-skeleton;
+    animation-name: loading-skeleton;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(8%, $primary-color),
+      color-stop(18%, $secondary-color),
+      color-stop(33%, $primary-color)
+    );
+    background: -o-linear-gradient(
+      left,
+      $primary-color 8%,
+      $secondary-color 18%,
+      $primary-color 33%
+    );
+    background: linear-gradient(
+      to right,
+      $primary-color 8%,
+      $secondary-color 18%,
+      $primary-color 33%
+    );
+    background-size: 50vw;
+  }

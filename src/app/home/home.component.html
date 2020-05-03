@@ -1,0 +1,88 @@
+<mat-toolbar color="primary">Covid Data</mat-toolbar>
+
+<section class="container">
+  <div class="row">
+
+    <div class="col-xl-6 col-12 mt-3">
+      <mat-card>
+        <mat-card-header>
+
+          <mat-card-title>Trend</mat-card-title>
+          <mat-card-subtitle>Last 6 weeks</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="graph">
+            <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"  [legendPosition]="'below'"
+              [xAxisLabel]="xAxisLabel" [yScaleMin]="0" [yScaleMax]="5000000" [timeline]="true" [results]="graphData">
+            </ngx-charts-line-chart>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-xl-6 col-12 mt-3">
+      <mat-card class="d-none d-sm-block">
+        <mat-card-header>
+
+          <mat-card-title>World Map</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <img src="assets/images/coronavirus-world.jpg" class="image-map">
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col pt-3">
+    
+          <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Italy">
+            </mat-form-field>
+          </div>  
+          <div class="col-12 table-container">
+            <table mat-table [dataSource]="dataSource" matSort class=" mat-elevation-z8">
+            
+            
+              <ng-container  matColumnDef="province">
+                <th mat-header-cell mat-sort-header  *matHeaderCellDef> Country </th>
+                <td class="left-align-cell" mat-cell *matCellDef="let element">
+                    <span [ngClass]="{'text-block': isLoading}">{{element.province}} </span> </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="active">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef> Active </th>
+                <td mat-cell *matCellDef="let element" [ngClass]="{'alert': element.active>1000}">
+                      <span [ngClass]="{'text-block': isLoading}"> {{element.active}} </span> </td>
+              </ng-container>
+           
+              <ng-container matColumnDef="confirmed">
+                <th mat-header-cell mat-sort-header  *matHeaderCellDef> Confirmed </th>
+                <td mat-cell *matCellDef="let element" [ngClass]="{'alert': element.confirmed>1000}">
+                      <span [ngClass]="{'text-block': isLoading}"> {{element.confirmed}} </span> </td>
+              </ng-container>
+            
+           
+              <ng-container matColumnDef="deaths">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef> Deaths </th>
+                <td mat-cell *matCellDef="let element" [ngClass]="{'alert': element.deaths>1000}"> 
+                      <span [ngClass]="{'text-block': isLoading}">{{element.deaths}} </span> </td>
+              </ng-container>
+             
+               <ng-container matColumnDef="recovered">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Recovered </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="{'alert': element.recovered>1000}">
+                          <span [ngClass]="{'text-block': isLoading}">{{element.recovered}} </span>  </td>
+                </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+          <mat-paginator class="col p-0"  fixed [pageSizeOptions]="[ 10, 20]" showFirstLastButtons></mat-paginator>
+       
+    </div>
+</section>
+
+
